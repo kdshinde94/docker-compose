@@ -1,0 +1,28 @@
+version: '2'
+services:
+  data:
+    volumes:
+      - ./db-qa/:/data-qa/
+  db:
+    volumes_from:
+      - data
+    depends_on:
+      - data
+    ports:
+      - 3334:3306
+  node-app:
+    ports:
+      - "5000:8000"
+    volumes_from:
+      - data
+    depends_on:
+      - data
+      - db
+  web-server:
+    ports:
+      - "50:80"
+    volumes_from:
+      - data
+    depends_on:
+      - data
+      - node-app

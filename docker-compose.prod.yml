@@ -1,0 +1,28 @@
+version: '2'
+services:
+  data:
+    volumes:
+      - ./db-prod/:/data-prod/
+  db:
+    volumes_from:
+      - data
+    depends_on:
+      - data
+    ports:
+      - 3333:3306
+  node-app:
+    ports:
+      - "7000:8000"
+    volumes_from:
+      - data
+    depends_on:
+      - data
+      - db
+  web-server:
+    ports:
+      - "70:80"
+    volumes_from:
+      - data
+    depends_on:
+      - data
+      - node-app
