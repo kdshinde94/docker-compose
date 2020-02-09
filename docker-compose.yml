@@ -2,19 +2,13 @@ version: '2'
 services:
   data:
     image: ubuntu:latest
-    volumes:
-      - ./db/:/data/
   db:
     image: nouchka/sqlite3:latest
     stdin_open: true
-    volumes_from:
-      - data
     depends_on:
       - data
   node-app:
     build: .
-    volumes_from:
-      - data
     depends_on:
       - data
       - db
@@ -22,8 +16,6 @@ services:
     build: 
        context: .
        dockerfile: Dockerfile.web
-    volumes_from:
-      - data
     depends_on:
       - data
       - node-app

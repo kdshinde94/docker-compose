@@ -8,8 +8,6 @@ services:
       - data
     depends_on:
       - data
-    ports:
-      - 3334:3306
   node-app:
     ports:
       - "5000:8000"
